@@ -1,0 +1,16 @@
+{{define "content"}}
+    <form action="/students/update" method="POST">
+    <label for="firstname">First name:</label>
+    <input type="text" name="firstname" id="firstname" value="{{.FirstName}}">
+    <label for="lastname">Last name:</label>
+    <input type="text" name="lastname" id="lastname" value="{{.LastName}}">
+    <label for="age">Age:</label>
+    <input type="number" name="age" id="age" value="{{.Age}}">
+    <label for="course">Course:</label>
+    <input type="text" name="course" id="course" value="{{.Course}}">
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" value="{{.Email}}">
+    <input type="hidden" name="id" value="{{.ID}}">
+    <button type="submit">Submit</button>
+    </form>
+{{end}}
