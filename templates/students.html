@@ -1,0 +1,32 @@
+{{define "content"}}
+    <h1>All Students</h1>
+    <form action="/students/new" method="GET">
+       <button type="submit">Register Student</button>
+    </form>
+    <table>
+        <tr>
+            <th>First Name</th>  
+            <th>Last Name</th>  
+            <th>Course</th> 
+            <th>Actions</th>
+        </tr>
+        {{range .}}
+        <tr>
+    <td>{{.FirstName}}</td>
+    <td>{{.LastName}}</td>
+    <td>{{.Course}}</td>
+    <td>
+        <a href="/student?id={{.ID}}">View</a> |
+        <a href="/students/edit?id={{.ID}}">Edit</a> |
+
+        <form action="/students/delete" method="POST">
+        <input type="hidden" name="id" value="{{.ID}}">
+        <button type="submit">Delete</button>
+        </form> 
+    </td>
+    </tr>
+    {{else}}
+    <p>No registered student.</p>
+    {{end}}
+    </table>
+{{end}}

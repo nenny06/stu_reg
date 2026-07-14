@@ -130,7 +130,7 @@ func RegisterStudent(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateForm(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/student/update" {
+	if r.URL.Path != "/students/edit" {
 		http.NotFound(w, r)
 		return
 	}
@@ -222,4 +222,54 @@ func UpdateStudent(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "Internal server error", http.StatusInternalServerError)
 	return
 
-}	
+}
+
+func ViewStudents(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/students" {
+		http.NotFound(w,r)
+		return
+	}
+
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	renderTemplate(w, "templates/students.html", students)
+}
+
+func DeleteStudent(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/students/delete" {
+		http.NotFound(w,r)
+		return
+	}
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	id := r.FormValue("id")
+
+	if id == "" {
+		http.Error(w, "ID required", http.StatusBadRequest)
+		return
+	}
+
+	convert_id, err := strconv.Atoi(id)
+
+	if err != nil {
+		http.Error(w, "Invalid student ID", http.StatusBadRequest)
+		return
+	}
+
+	for i := range students {
+		if students[i].ID == convert_id {
+			students = append(students[:i], students[i + 1:]...)
+			http.Redirect(w,r, "/students", http.StatusSeeOther)
+			return
+		}
+	}
+	http.Error(w, "Student not found", http.StatusBadRequest)
+	return
+}
