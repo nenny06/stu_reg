@@ -1,7 +1,7 @@
 {{define "content"}}
     <h1>All Students</h1>
     <form action="/students/new" method="GET">
-       <button type="submit">Register Student</button>
+       <button type="submit" class="btn-register">Register Student</button>
     </form>
     <table>
         <tr>
@@ -16,13 +16,12 @@
     <td>{{.LastName}}</td>
     <td>{{.Course}}</td>
     <td>
-        <a href="/student?id={{.ID}}">View</a> |
-        <a href="/students/edit?id={{.ID}}">Edit</a> |
+        <a href="/student?id={{.ID}}" class="btn-view">View</a> |
+        <a href="/students/edit?id={{.ID}}" class="btn-edit">Edit</a> |
 
-        <form action="/students/delete" method="POST">
-        <input type="hidden" name="id" value="{{.ID}}">
-        <button type="submit">Delete</button>
-        </form> 
+        <a href="/students/confirmdelete?id={{.ID}}" class="btn-delete">
+            Delete
+        </a>
     </td>
     </tr>
     {{else}}

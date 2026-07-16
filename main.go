@@ -15,6 +15,9 @@ func main() {
 	http.HandleFunc("/students/edit", UpdateForm)
 	http.HandleFunc("/students/update", UpdateStudent)
 	http.HandleFunc("/students/delete", DeleteStudent)
+	http.HandleFunc("/students/confirmdelete", ConfirmDeleteSudent)
+	http.Handle("/static/", http.StripPrefix("/static/", 
+	http.FileServer(http.Dir("static")),),)
 
 
 	fmt.Println("server running")

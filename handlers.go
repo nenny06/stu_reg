@@ -4,9 +4,11 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"fmt"
 )
 
 func renderTemplate(w http.ResponseWriter, file string, data any) {
+	//fmt.Println(file)
 	tmpl, err := template.ParseFiles("templates/base.html", file)
 
 	if err != nil {
@@ -225,6 +227,8 @@ func UpdateStudent(w http.ResponseWriter, r *http.Request) {
 }
 
 func ViewStudents(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("ViewStudents called")
+	fmt.Println("Number of students:", len(students))
 	if r.URL.Path != "/students" {
 		http.NotFound(w,r)
 		return
@@ -267,6 +271,41 @@ func DeleteStudent(w http.ResponseWriter, r *http.Request) {
 		if students[i].ID == convert_id {
 			students = append(students[:i], students[i + 1:]...)
 			http.Redirect(w,r, "/students", http.StatusSeeOther)
+			return
+		}
+	}
+	http.Error(w, "Student not found", http.StatusBadRequest)
+	return
+}
+
+func ConfirmDeleteSudent(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/students/confirmdelete" {
+		http.NotFound(w,r)
+		return
+	}
+
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	id := r.FormValue("id")
+
+	if id == "" {
+		http.Error(w, "Required ID", http.StatusBadRequest)
+		return
+	}
+
+	convert_id, err := strconv.Atoi(id)
+
+	if err != nil {
+		http.Error(w, "ID missing", http.StatusBadRequest)
+		return
+	}
+
+	for _, student := range students {
+		if student.ID == convert_id {
+			renderTemplate(w, "templates/confirmdelete.html", student)
 			return
 		}
 	}

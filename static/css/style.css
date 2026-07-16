@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4
+}
+
+h1 {
+    color: #98bfe4
+}
+
+nav {
+    background-color: #1f4e79;
+    padding: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #1f4e79;
+    color: whitesmoke;
+
+}
+
+tr:hover {
+    background-color: #f5d9d9;
+}
+
+.btn-register,
+.btn-view,
+.btn-edit,
+.btn-delete {
+    color: white;
+    padding: 8px 14px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-register {
+    background-color: green;
+    transition: background-color 0.3s;
+}
+
+.btn-register:hover {
+    background-color: darkgreen;
+}
+
+.btn-view {
+    background-color: blueviolet;
+}
+
+.btn-edit {
+    background-color: rgb(212, 122, 89);
+}
+
+.btn-delete {
+    background-color: rgb(238, 72, 72);
+}
